@@ -1,7 +1,12 @@
 import React, { Component, PropTypes } from 'react';
-import Header from './components/Header'
-import MainSection from './components/MainSection'
+import Header from './components/Header';
+import MainSection from './components/MainSection';
 import {render} from 'react-dom';
+import {async,map} from 'con.js';
+const {pub,sub,chan,take,put} = async;
+
+let inputChan = chan();
+let ourPub = pub(inputChan, _=>_['action']);
 
 const todos = [{
   text: 'Use Redux',
@@ -14,7 +19,7 @@ class App extends Component {
     return (
       <div>
           <Header/>
-          <MainSection todos={todos} />
+          <MainSection todos={todos} chan={inputChan}/>
       </div>
     )
   }
