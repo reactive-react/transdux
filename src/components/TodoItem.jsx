@@ -1,15 +1,33 @@
 import React, { Component, PropTypes } from 'react'
 import classnames from 'classnames'
 import TodoTextInput from './TodoTextInput'
-
+import {async, map, updateIn, extra, toJs} from 'con.js'
+const {put,sub,take,chan} = async
 class TodoItem extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
-      editing: false
+      editing: false,
+      todo: this.props.todo
     }
   }
 
+  componentDidMount(){
+    function complete(msg){
+      return state=>updateIn(state, ['completed'], _=>!_)
+    }
+    let tx = map((msg)=>{
+      return toJs(complete(msg)(extra.toClj(this.state.todo)))
+    })
+    let completeChan = chan(1, tx);
+    sub(this.props.pub, "TodoItem.complete", completeChan);
+    function takeloop(chan, action){
+      take(chan).then(action).then(takeloop.bind(null, chan,action))
+    }
+    takeloop(completeChan, (newtodo)=>{
+      this.setState({todo: newtodo})
+    })
+  }
   handleDoubleClick() {
     this.setState({ editing: true })
   }
@@ -24,7 +42,8 @@ class TodoItem extends Component {
   }
 
   render() {
-    const { todo, completeTodo, deleteTodo } = this.props
+    const { chan } = this.props
+    let {todo} = this.state
 
     let element
     if (this.state.editing) {
@@ -39,7 +58,7 @@ class TodoItem extends Component {
           <input className="toggle"
                  type="checkbox"
                  checked={todo.completed}
-                 onChange={() => completeTodo(todo.id)} />
+                 onChange={() => put(this.props.chan, {action:'TodoItem.complete', id:todo.id})} />
           <label onDoubleClick={this.handleDoubleClick.bind(this)}>
             {todo.text}
           </label>

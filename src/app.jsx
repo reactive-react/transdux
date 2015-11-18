@@ -19,7 +19,7 @@ class App extends Component {
     return (
       <div>
           <Header/>
-          <MainSection todos={todos} chan={inputChan}/>
+          <MainSection todos={todos} pub={ourPub} chan={inputChan}/>
       </div>
     )
   }
