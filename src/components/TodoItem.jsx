@@ -43,7 +43,7 @@ let TodoItem = React.createClass({
                  type="checkbox"
                  checked={todo.completed}
                  onChange={() => this.dispatch(MainSection, 'complete',{id:todo.id})} />
-          <label onDoubleClick={this.handleDoubleClick.bind(this)}>
+          <label onDoubleClick={this.handleDoubleClick}>
             {todo.text}
           </label>
           <button className="destroy"

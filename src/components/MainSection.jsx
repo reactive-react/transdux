@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import TodoItem from './TodoItem'
 import Footer from './Footer'
-import {async, map, updateIn, extra, toJs} from 'con.js'
+import {async, filter, map, updateIn, extra, toJs} from 'con.js'
 const {put,sub,take,chan} = async
 import Transdux from '../../lib/transdux'
 
@@ -21,23 +21,36 @@ const todos = [{
   completed: false,
   id: 1
 }];
-
+const id = _=>_;
 let actions = {
   complete(msg, data){
-    return map(todo=>{
-      if(todo.get('id')==msg.id)
-        return updateIn(todo, ['completed'], _=>!_ )
+    return {
+      todos:data.todos.map(todo=>{
+        if(todo.id==msg.id)
+          todo.completed = !todo.completed
         return todo
-    }, data.get('todos'))
+      })
+    }
   },
-  asdf:_=>_
+  show(msg,data){
+    switch(msg){
+      case('SHOW_ALL'):
+        return {filter: id}
+      case('SHOW_ACTIVE'):
+        return {filter: todos=>todos.filter(todo=>!todo.completed)}
+      case('SHOW_COMPLETED'):
+        return {filter: todos=>todos.filter(todo=>todo.completed)}
+
+    }
+  }
 }
 
 let MainSection = React.createClass({
   mixins: [Transdux],
   getInitialState(){
     return {
-      todos: todos
+      todos: todos,
+      filter: id
     }
   },
   componentDidMount(){
@@ -71,9 +84,7 @@ let MainSection = React.createClass({
 
     if (todos.length) {
       return (
-        <Footer completedCount={completedCount}
-                onClearCompleted={this.handleClearCompleted.bind(this)}
-                onShow={this.handleShow.bind(this)} />
+        <Footer completedCount={completedCount} {...this.props}/>
       )
     }
   },
@@ -82,7 +93,7 @@ let MainSection = React.createClass({
     const { actions } = this.props
     const {todos} = this.state
 
-    const filteredTodos = todos
+    const filteredTodos = this.state.filter(todos);
     const completedCount = todos.reduce((count, todo) =>
       todo.completed ? count + 1 : count,
       0
