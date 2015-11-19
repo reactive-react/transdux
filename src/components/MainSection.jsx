@@ -3,6 +3,7 @@ import TodoItem from './TodoItem'
 import Footer from './Footer'
 import {async, map, updateIn, extra, toJs} from 'con.js'
 const {put,sub,take,chan} = async
+import Transdux from '../../lib/transdux'
 
 // import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../constants/TodoFilters'
 
@@ -21,39 +22,26 @@ const todos = [{
   id: 1
 }];
 
+let actions = {
+  complete(msg, data){
+    return map(todo=>{
+      if(todo.get('id')==msg.id)
+        return updateIn(todo, ['completed'], _=>!_ )
+        return todo
+    }, data.get('todos'))
+  },
+  asdf:_=>_
+}
+
 let MainSection = React.createClass({
+  mixins: [Transdux],
   getInitialState(){
     return {
       todos: todos
     }
   },
   componentDidMount(){
-    // -------vv code user should write vv------------------
-    function complete(msg, data){
-      return map(todo=>{
-        if(todo.get('id')==msg.id)
-          return updateIn(todo, ['completed'], _=>!_ )
-          return todo
-      }, data.get('todos'))
-    }
-    // ---------------------------------
-
-    // ---------- code should extract to transdux -------------------
-    let tx = map((msg)=>{
-      return toJs(complete(msg, extra.toClj(this.state)))
-    });
-
-    let completeChan = chan(1, tx);
-    
-    sub(this.props.pub, "Todo.complete", completeChan);
-    
-    function takeloop(chan, action){
-      take(chan).then(action).then(takeloop.bind(null, chan,action))
-    }
-    takeloop(completeChan, (newtodos)=>{
-      this.setState({todos: newtodos})
-    })
-    // ----------
+    this.bindActions(actions, MainSection)
   },
 
   handleClearCompleted() {

@@ -1,20 +1,21 @@
 import React, { Component, PropTypes } from 'react'
 import classnames from 'classnames'
 import TodoTextInput from './TodoTextInput'
-import {async, map, updateIn, extra, toJs} from 'con.js'
+import {hash, async, map, updateIn, extra, toJs} from 'con.js'
 const {put,sub,take,chan} = async
-
-class TodoItem extends Component {
-  constructor(props, context) {
-    super(props, context)
-    this.state = {
+import MainSection from './MainSection'
+import Transdux from '../../lib/transdux'
+let TodoItem = React.createClass({
+  mixins: [Transdux],
+  getInitialState(){
+    return {
       editing: false,
     }
-  }
+  },
 
   handleDoubleClick() {
     this.setState({ editing: true })
-  }
+  },
 
   handleSave(id, text) {
     if (text.length === 0) {
@@ -23,7 +24,7 @@ class TodoItem extends Component {
       this.props.editTodo(id, text)
     }
     this.setState({ editing: false })
-  }
+  },
 
   render() {
     const { chan, todo } = this.props
@@ -41,7 +42,7 @@ class TodoItem extends Component {
           <input className="toggle"
                  type="checkbox"
                  checked={todo.completed}
-                 onChange={() => put(this.props.chan, {action:'Todo.complete', id:todo.id})} />
+                 onChange={() => this.dispatch(MainSection, 'complete',{id:todo.id})} />
           <label onDoubleClick={this.handleDoubleClick.bind(this)}>
             {todo.text}
           </label>
@@ -59,14 +60,7 @@ class TodoItem extends Component {
         {element}
       </li>
     )
-  }
-}
-
-TodoItem.propTypes = {
-  todo: PropTypes.object.isRequired,
-  editTodo: PropTypes.func.isRequired,
-  deleteTodo: PropTypes.func.isRequired,
-  completeTodo: PropTypes.func.isRequired
-}
+  },
+});
 
 export default TodoItem
