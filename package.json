@@ -5,7 +5,15 @@
   "main": "index.js",
   "browserify": {
     "transform": [
-      ["babelify", {"extensions": [".jsx",".js"]}]
+      [
+        "babelify",
+        {
+          "extensions": [
+            ".jsx",
+            ".js"
+          ]
+        }
+      ]
     ]
   },
   "scripts": {
@@ -16,14 +24,24 @@
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
-    "testFileExtensions": ["es6", "js", "jsx"],
-    "moduleFileExtensions": ["js", "json", "es6", "jsx"]
+    "testFileExtensions": [
+      "es6",
+      "js",
+      "jsx"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "es6",
+      "jsx"
+    ]
   },
   "dependencies": {
     "classnames": "^2.2.0",
     "con.js": "^0.4.3",
     "react": "^0.14.2",
-    "react-dom": "^0.14.2"
+    "react-dom": "^0.14.2",
+    "uuid": "^2.0.1"
   },
   "devDependencies": {
     "babel": "^6.1.18",
