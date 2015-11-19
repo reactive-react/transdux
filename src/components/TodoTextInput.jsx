@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import classnames from 'classnames'
-import Transdux from '../../lib/transdux'
+import {TxMixin} from '../../lib/transdux'
 import MainSection from './MainSection'
 let TodoTextInput = React.createClass({
-  mixins: [Transdux],
+  mixins: [TxMixin],
   getInitialState(){
     return {
       text: this.props.text || ''
@@ -26,8 +26,8 @@ let TodoTextInput = React.createClass({
 
   handleBlur(e) {
     if (!this.props.newTodo) {
-      console.log(e.target.value);
-      this.dispatch(MainSection, 'edit', e.target.value)
+      console.log(MainSection.toString());
+      this.dispatch(MainSection, 'edit', {id:this.props.itemid,text:e.target.value})
     }
   },
 

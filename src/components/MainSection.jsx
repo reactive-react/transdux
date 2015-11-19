@@ -1,10 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import TodoItem from './TodoItem'
 import Footer from './Footer'
-import {async, filter, map, updateIn, extra, toJs} from 'con.js'
-const {put,sub,take,chan} = async
-import Transdux from '../../lib/transdux'
-
+import {TxMixin} from '../../lib/transdux'
 const todos = [{
   text: 'Dont Use Redux',
   completed: false,
@@ -48,11 +45,16 @@ let actions = {
       todos: todos
     }
   },
+  edit(msg, state){
+    let todos = state.todos
+    todos.map(todo=>{
+      console.log(msg);
+    })
   }
 }
 
 let MainSection = React.createClass({
-  mixins: [Transdux],
+  mixins: [TxMixin],
   getInitialState(){
     return {
       todos: todos,

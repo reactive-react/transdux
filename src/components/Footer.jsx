@@ -1,8 +1,7 @@
 import React from 'react'
 import classnames from 'classnames'
 import MainSection from './MainSection'
-import Transdux from '../../lib/transdux'
-
+import {TxMixin} from '../../lib/transdux'
 const FILTER_TITLES = {
   'SHOW_ALL': 'All',
   'SHOW_ACTIVE': 'Active',
@@ -10,7 +9,7 @@ const FILTER_TITLES = {
 }
 
 let Footer = React.createClass({
-  mixins: [Transdux],
+  mixins: [TxMixin],
   renderTodoCount() {
     const { activeCount } = this.props
     const itemWord = activeCount === 1 ? 'item' : 'items'

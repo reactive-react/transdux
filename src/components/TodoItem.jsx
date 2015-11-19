@@ -1,12 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 import classnames from 'classnames'
 import TodoTextInput from './TodoTextInput'
-import {hash, async, map, updateIn, extra, toJs} from 'con.js'
-const {put,sub,take,chan} = async
 import MainSection from './MainSection'
-import Transdux from '../../lib/transdux'
+import {TxMixin} from '../../lib/transdux'
 let TodoItem = React.createClass({
-  mixins: [Transdux],
+  mixins: [TxMixin],
   getInitialState(){
     return {
       editing: false,
@@ -17,11 +15,10 @@ let TodoItem = React.createClass({
     this.setState({ editing: true })
   },
 
-  handleSave(id, text) {
+  handleSave(text) {
     if (text.length === 0) {
       this.props.deleteTodo(id)
     } else {
-      this.props.editTodo(id, text)
     }
     this.setState({ editing: false })
   },
@@ -33,8 +30,9 @@ let TodoItem = React.createClass({
     if (this.state.editing) {
       element = (
         <TodoTextInput text={todo.text}
+                       itemid={todo.id}
                        editing={this.state.editing}
-                       onSave={(text) => this.handleSave(todo.id, text)} />
+                       />
       )
     } else {
       element = (

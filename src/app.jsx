@@ -2,22 +2,19 @@ import React, { Component, PropTypes } from 'react';
 import Header from './components/Header';
 import MainSection from './components/MainSection';
 import {render} from 'react-dom';
-import {async,map} from 'con.js';
-const {pub,sub,chan,take,put} = async;
-
-let inputChan = chan();
-let ourPub = pub(inputChan, _=>_['action']);
-
+import Transdux from '../lib/transdux'
 
 class App extends Component {
   render(){
     return (
       <div>
-          <Header chan={inputChan}/>
-          <MainSection pub={ourPub} chan={inputChan}/>
+          <Header />
+          <MainSection />
       </div>
     )
   }
 }
 
-render(<App/>, document.getElementById('app'));
+render(
+  <Transdux><App/></Transdux>
+  , document.getElementById('app'));
