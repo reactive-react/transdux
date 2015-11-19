@@ -5,14 +5,14 @@ import {TxMixin} from 'transdux'
 const FILTER_TITLES = {
   'SHOW_ALL': 'All',
   'SHOW_ACTIVE': 'Active',
-  'SHOW_COMPLETED': 'Completed'
-}
+  'SHOW_COMPLETED': 'Completed',
+};
 
 let Footer = React.createClass({
   mixins: [TxMixin],
   renderTodoCount() {
-    const { activeCount } = this.props
-    const itemWord = activeCount === 1 ? 'item' : 'items'
+    const { activeCount } = this.props;
+    const itemWord = activeCount === 1 ? 'item' : 'items';
 
     return (
       <span className="todo-count">
@@ -22,8 +22,8 @@ let Footer = React.createClass({
   },
 
   renderFilterLink(filter) {
-    const title = FILTER_TITLES[filter]
-    const { filter: selectedFilter, onShow } = this.props
+    const title = FILTER_TITLES[filter];
+    const { filter: selectedFilter, onShow } = this.props;
 
     return (
       <a className={classnames({ selected: filter === selectedFilter })}
@@ -35,7 +35,7 @@ let Footer = React.createClass({
   },
 
   renderClearButton() {
-    const { completedCount } = this.props
+    const { completedCount } = this.props;
     if (completedCount > 0) {
       return (
         <button className="clear-completed"

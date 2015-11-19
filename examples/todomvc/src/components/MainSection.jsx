@@ -5,11 +5,11 @@ import {TxMixin} from 'transdux'
 const todos = [{
   text: 'Dont Use Redux',
   completed: false,
-  id: 0
+  id: 0,
 },{
   text: 'Use transdux',
   completed: false,
-  id: 1
+  id: 1,
 }];
 const id = _=>_;
 let actions = {
@@ -17,17 +17,17 @@ let actions = {
     return {
       todos:state.todos.map(todo=>{
         if(todo.id==msg.id)
-          todo.completed = !todo.completed
-        return todo
+          todo.completed = !todo.completed;
+        return todo;
       })
     }
   },
-  show(msg,state){
+  show(msg){
     switch(msg){
       case('SHOW_ALL'):
-        return {filter: id}
+        return {filter: id};
       case('SHOW_ACTIVE'):
-        return {filter: todos=>todos.filter(todo=>!todo.completed)}
+        return {filter: todos=>todos.filter(todo=>!todo.completed)};
       case('SHOW_COMPLETED'):
         return {filter: todos=>todos.filter(todo=>todo.completed)}
 
@@ -39,30 +39,30 @@ let actions = {
     }
   },
   add(msg, state){
-    let todos = state.todos
-    todos.unshift({id:todos.length+1, text:msg, completed:false})
+    let todos = state.todos;
+    todos.unshift({id:todos.length+1, text:msg, completed:false});
     return {
       todos: todos
     }
   },
   edit(msg, state){
-    let todos = state.todos
+    let todos = state.todos;
     todos.map(todo=>{
       console.log(msg);
     })
   }
-}
+};
 
 let MainSection = React.createClass({
   mixins: [TxMixin],
   getInitialState(){
     return {
       todos: todos,
-      filter: id
+      filter: id,
     }
   },
   componentDidMount(){
-    this.bindActions(actions)
+    this.bindActions(actions);
   },
 
   handleClearCompleted() {
@@ -72,11 +72,11 @@ let MainSection = React.createClass({
   },
 
   handleShow(filter) {
-    this.setState({ filter })
+    this.setState({ filter });
   },
 
   renderToggleAll(completedCount) {
-    const { todos } = this.state
+    const { todos } = this.state;
     if (todos.length > 0) {
       return (
         <input className="toggle-all"
@@ -88,7 +88,7 @@ let MainSection = React.createClass({
   },
 
   renderFooter(completedCount) {
-    const { todos } = this.state
+    const { todos } = this.state;
     const activeCount = todos.length - completedCount;
 
     if (todos.length) {
@@ -99,8 +99,8 @@ let MainSection = React.createClass({
   },
 
   render() {
-    const { actions } = this.props
-    const {todos} = this.state
+    const { actions } = this.props;
+    const { todos } = this.state;
     const completedCount = todos.reduce((count, todo) =>
       todo.completed ? count + 1 : count,
                                         0

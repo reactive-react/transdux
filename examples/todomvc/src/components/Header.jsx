@@ -10,7 +10,7 @@ let Header = React.createClass({
                          placeholder="What needs to be done?" />
       </header>
     )
-  },
-})
+  }
+});
 
 export default Header
