@@ -27,9 +27,9 @@ let TodoItem = React.createClass({
   },
 
   render() {
-    const { chan, todo } = this.props
+    const { chan, todo } = this.props;
 
-    let element
+    let element;
     if (this.state.editing) {
       element = (
         <TodoTextInput text={todo.text}
