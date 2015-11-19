@@ -9,17 +9,21 @@ import TodoTextInput from '../TodoTextInput'
 import MainSection from '../MainSection'
 import Transdux from '../../../lib/transdux'
 
-const {put, sub, take, chan} = async;
-
+let {default: TodoItem} = require('../TodoItem');
 describe('TodoItem', () => {
     it('changes the text after click', () => {
-        //var todoItem = TestUtils.renderIntoDocument(
-        //    <TodoItem />
-        //);
-        //
-        //var todoItemNode = ReactDOM.findDOMNode(todoItem);
-        //expect(todoItemNode.textContent).toEqual('Off');
-        //expect(todoItemNode.textContent).toEqual('On');
+        var todo = {
+            text: 'Dont Use Redux',
+            completed: false,
+            id: 0
+        };
+        var todoItem = TestUtils.renderIntoDocument(
+            <TodoItem todo={todo} />
+        );
+        TestUtils.Simulate.change(
+            TestUtils.findRenderedDOMComponentWithTag(todoItem, 'input')
+        );
+        expect(Transdux.dispatch).toBeCalledWith(MainSection, 'complete', {id:todo.id});
     });
 
 });
