@@ -21,27 +21,26 @@ const todos = [{
   id: 1
 }];
 
-class MainSection extends Component {
-  constructor(props,context){
-    super(props, context)
-    this.state = {
+let MainSection = React.createClass({
+  getInitialState(){
+    return {
       todos: todos
     }
-  }
+  },
   componentDidMount(){
     // -------vv code user should write vv------------------
-    function complete(msg){
-      return state=>map(todo=>{
+    function complete(msg, data){
+      return map(todo=>{
         if(todo.get('id')==msg.id)
           return updateIn(todo, ['completed'], _=>!_ )
           return todo
-      }, state)
+      }, data.get('todos'))
     }
     // ---------------------------------
 
     // ---------- code should extract to transdux -------------------
     let tx = map((msg)=>{
-      return toJs(complete(msg)(extra.toClj(this.state.todos)))
+      return toJs(complete(msg, extra.toClj(this.state)))
     });
 
     let completeChan = chan(1, tx);
@@ -55,17 +54,17 @@ class MainSection extends Component {
       this.setState({todos: newtodos})
     })
     // ----------
-  }
+  },
 
   handleClearCompleted() {
     const atLeastOneCompleted = this.state.todos.some(todo => todo.completed)
     if (atLeastOneCompleted) {
     }
-  }
+  },
 
   handleShow(filter) {
     this.setState({ filter })
-  }
+  },
 
   renderToggleAll(completedCount) {
     const { todos } = this.state
@@ -77,7 +76,7 @@ class MainSection extends Component {
                />
       )
     }
-  }
+  },
 
   renderFooter(completedCount) {
     const { todos } = this.state
@@ -89,7 +88,7 @@ class MainSection extends Component {
                 onShow={this.handleShow.bind(this)} />
       )
     }
-  }
+  },
 
   render() {
     const { actions } = this.props
@@ -111,11 +110,7 @@ class MainSection extends Component {
         {this.renderFooter(0)}
       </section>
     )
-  }
-}
-
-MainSection.propTypes = {
-  todos: PropTypes.array.isRequired,
-}
+  },
+});
 
 export default MainSection
