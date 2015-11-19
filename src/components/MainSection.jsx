@@ -52,7 +52,7 @@ let MainSection = React.createClass({
     }
   },
   componentDidMount(){
-    this.bindActions(actions, MainSection)
+    this.bindActions(actions)
   },
 
   handleClearCompleted() {
