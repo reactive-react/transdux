@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import classnames from 'classnames'
 import TodoTextInput from './TodoTextInput'
 import MainSection from './MainSection'
-import {TxMixin} from '../../lib/transdux'
+import {TxMixin} from 'transdux'
 let TodoItem = React.createClass({
   mixins: [TxMixin],
   getInitialState(){

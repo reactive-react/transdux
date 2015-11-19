@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import TodoItem from './TodoItem'
 import Footer from './Footer'
-import {TxMixin} from '../../lib/transdux'
+import {TxMixin} from 'transdux'
 const todos = [{
   text: 'Dont Use Redux',
   completed: false,

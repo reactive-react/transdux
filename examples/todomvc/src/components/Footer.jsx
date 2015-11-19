@@ -1,7 +1,7 @@
 import React from 'react'
 import classnames from 'classnames'
 import MainSection from './MainSection'
-import {TxMixin} from '../../lib/transdux'
+import {TxMixin} from 'transdux'
 const FILTER_TITLES = {
   'SHOW_ALL': 'All',
   'SHOW_ACTIVE': 'Active',
