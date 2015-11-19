@@ -23,7 +23,8 @@ describe('TodoItem', () => {
         TestUtils.Simulate.change(
             TestUtils.findRenderedDOMComponentWithTag(todoItem, 'input')
         );
-        expect(Transdux.dispatch).toBeCalledWith(MainSection, 'complete', {id:todo.id});
+        console.log(Transdux);
+        expect(Transdux.TxMixin.dispatch).toBeCalledWith(MainSection, 'complete', {id:todo.id});
     });
 
 });
