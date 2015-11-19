@@ -4,6 +4,7 @@
   "description": "",
   "main": "transdux.js",
   "scripts": {
+    "build": "babel lib/transdux.js > transdux.js",
     "test": "jest"
   },
   "jest": {
@@ -27,9 +28,10 @@
   },
   "devDependencies": {
     "babel": "^6.1.18",
+    "babel-cli": "^6.2.0",
+    "babel-jest": "^6.0.0",
     "babel-plugin-transform-react-jsx": "^6.1.18",
     "babel-preset-es2015": "^6.1.18",
-    "babel-jest": "^6.0.0",
     "jest-cli": "^0.7.0"
   },
   "author": "Jichao Ouyang",
