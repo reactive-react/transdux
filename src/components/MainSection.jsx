@@ -40,6 +40,14 @@ let actions = {
     return {
       todos: state.todos.filter(todo=>todo.completed==false)
     }
+  },
+  add(msg, state){
+    let todos = state.todos
+    todos.unshift({id:todos.length+1, text:msg, completed:false})
+    return {
+      todos: todos
+    }
+  },
   }
 }
 

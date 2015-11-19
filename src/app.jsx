@@ -13,7 +13,7 @@ class App extends Component {
   render(){
     return (
       <div>
-          <Header/>
+          <Header chan={inputChan}/>
           <MainSection pub={ourPub} chan={inputChan}/>
       </div>
     )

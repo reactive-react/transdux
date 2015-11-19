@@ -1,33 +1,35 @@
 import React, { Component, PropTypes } from 'react'
 import classnames from 'classnames'
-
-class TodoTextInput extends Component {
-  constructor(props, context) {
-    super(props, context)
-    this.state = {
+import Transdux from '../../lib/transdux'
+import MainSection from './MainSection'
+let TodoTextInput = React.createClass({
+  mixins: [Transdux],
+  getInitialState(){
+    return {
       text: this.props.text || ''
     }
-  }
+  },
 
   handleSubmit(e) {
     const text = e.target.value.trim()
     if (e.which === 13) {
-      this.props.onSave(text)
+      this.dispatch(MainSection, 'add', text)
       if (this.props.newTodo) {
         this.setState({ text: '' })
       }
     }
-  }
+  },
 
   handleChange(e) {
     this.setState({ text: e.target.value })
-  }
+  },
 
   handleBlur(e) {
     if (!this.props.newTodo) {
-      this.props.onSave(e.target.value)
+      console.log(e.target.value);
+      this.dispatch(MainSection, 'edit', e.target.value)
     }
-  }
+  },
 
   render() {
     return (
@@ -40,19 +42,11 @@ class TodoTextInput extends Component {
         placeholder={this.props.placeholder}
         autoFocus="true"
         value={this.state.text}
-        onBlur={this.handleBlur.bind(this)}
-        onChange={this.handleChange.bind(this)}
-        onKeyDown={this.handleSubmit.bind(this)} />
+        onBlur={this.handleBlur}
+        onChange={this.handleChange}
+        onKeyDown={this.handleSubmit} />
     )
-  }
-}
-
-TodoTextInput.propTypes = {
-  onSave: PropTypes.func.isRequired,
-  text: PropTypes.string,
-  placeholder: PropTypes.string,
-  editing: PropTypes.bool,
-  newTodo: PropTypes.bool
-}
+  },
+});
 
 export default TodoTextInput
