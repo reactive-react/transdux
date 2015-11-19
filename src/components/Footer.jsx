@@ -36,11 +36,11 @@ let Footer = React.createClass({
   },
 
   renderClearButton() {
-    const { completedCount, onClearCompleted } = this.props
+    const { completedCount } = this.props
     if (completedCount > 0) {
       return (
         <button className="clear-completed"
-                onClick={onClearCompleted} >
+                onClick={()=>this.dispatch(MainSection, 'clear', null)} >
           Clear completed
         </button>
       )

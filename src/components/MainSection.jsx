@@ -5,13 +5,6 @@ import {async, filter, map, updateIn, extra, toJs} from 'con.js'
 const {put,sub,take,chan} = async
 import Transdux from '../../lib/transdux'
 
-// import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../constants/TodoFilters'
-
-const TODO_FILTERS = {
-  // [SHOW_ALL]: () => true,
-  // [SHOW_ACTIVE]: todo => !todo.completed,
-  // [SHOW_COMPLETED]: todo => todo.completed
-}
 const todos = [{
   text: 'Dont Use Redux',
   completed: false,
@@ -23,16 +16,16 @@ const todos = [{
 }];
 const id = _=>_;
 let actions = {
-  complete(msg, data){
+  complete(msg, state){
     return {
-      todos:data.todos.map(todo=>{
+      todos:state.todos.map(todo=>{
         if(todo.id==msg.id)
           todo.completed = !todo.completed
         return todo
       })
     }
   },
-  show(msg,data){
+  show(msg,state){
     switch(msg){
       case('SHOW_ALL'):
         return {filter: id}
@@ -41,6 +34,11 @@ let actions = {
       case('SHOW_COMPLETED'):
         return {filter: todos=>todos.filter(todo=>todo.completed)}
 
+    }
+  },
+  clear(msg,state){
+    return {
+      todos: state.todos.filter(todo=>todo.completed==false)
     }
   }
 }
@@ -81,10 +79,11 @@ let MainSection = React.createClass({
 
   renderFooter(completedCount) {
     const { todos } = this.state
+    const activeCount = todos.length - completedCount;
 
     if (todos.length) {
       return (
-        <Footer completedCount={completedCount} {...this.props}/>
+        <Footer completedCount={completedCount} activeCount={activeCount} {...this.props}/>
       )
     }
   },
@@ -92,21 +91,21 @@ let MainSection = React.createClass({
   render() {
     const { actions } = this.props
     const {todos} = this.state
-
-    const filteredTodos = this.state.filter(todos);
     const completedCount = todos.reduce((count, todo) =>
       todo.completed ? count + 1 : count,
-      0
-    )
+                                        0
+    );
+
+    const filteredTodos = this.state.filter(todos);
     return (
       <section className="main">
-        {this.renderToggleAll(0)}
+        {this.renderToggleAll(completedCount)}
         <ul className="todo-list">
           {filteredTodos.map(todo =>
             <TodoItem key={todo.id} todo={todo} {...this.props} />
           )}
         </ul>
-        {this.renderFooter(0)}
+        {this.renderFooter(completedCount)}
       </section>
     )
   },
