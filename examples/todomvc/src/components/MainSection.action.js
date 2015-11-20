@@ -10,12 +10,12 @@ const actions = {
   },
   show(msg,state){
     switch(msg){
-      case('SHOW_ALL'):
+    case('SHOW_ALL'):
       return {filter: _=>_}
-      case('SHOW_ACTIVE'):
-        return {filter: todos=>todos.filter(todo=>!todo.completed)}
-      case('SHOW_COMPLETED'):
-        return {filter: todos=>todos.filter(todo=>todo.completed)}
+    case('SHOW_ACTIVE'):
+      return {filter: todos=>todos.filter(todo=>!todo.completed)}
+    case('SHOW_COMPLETED'):
+      return {filter: todos=>todos.filter(todo=>todo.completed)}
     }
   },
   clear(msg,state){
