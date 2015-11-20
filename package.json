@@ -1,11 +1,12 @@
 {
   "name": "transdux",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "main": "transdux.js",
   "scripts": {
     "build": "babel lib/transdux.js > transdux.js",
-    "test": "jest"
+    "test": "jest",
+    "prepublish": "npm run build"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
