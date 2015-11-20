@@ -2,15 +2,16 @@ jest.dontMock('../transdux.js');
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
+import uuid from 'uuid';
 
-const {default:Transdux, TxMixin} = require('../transdux')
+const {default:Transdux, TxMixin} = require('../transdux');
 
   describe('transdux', () => {
     describe('todo dispatch', ()=>{
       let todolist;
       let Todo = React.createClass({
         render(){
-          return <div className={'todo-'+this.props.id} key={this.props.id} data-complete={this.props.done}>{this.props.text}</div>
+          return <div className={'todo-'+this.props.todo.id} key={this.props.todo.id} data-complete={this.props.todo.done}>{this.props.todo.text}</div>
         }
       });
       let TodoList = React.createClass({
@@ -18,8 +19,8 @@ const {default:Transdux, TxMixin} = require('../transdux')
         getInitialState(){
           return {
             todos: [
-              {id:1, text:'hehe',done:false},
-              {id:2, text:'heheda',done:false},
+              {id:1, text:'hehe', done:false},
+              {id:2, text:'heheda', done:false},
             ]
           }
         },
@@ -27,9 +28,9 @@ const {default:Transdux, TxMixin} = require('../transdux')
           this.bindActions({
             complete(msg, state){
               return {
-                todos: state.todos.map(todo=>{
-                  if(todo.id==msg){
-                    todo.done=!todo.done
+                todos: state.todos.map(todo => {
+                  if(todo.id == msg){
+                    todo.done =! todo.done
                   }
                   return todo
                 })
@@ -38,10 +39,9 @@ const {default:Transdux, TxMixin} = require('../transdux')
           })
         },
         render(){
-          console.log('render:',this.state.todos);
-          let todos = this.state.todos.map(todo=>{
-            return <Todo {...todo}/>
-          })
+          let todos = this.state.todos.map(todo => {
+            return <Todo todo={todo} />
+          });
           return <div>{todos}</div>
         }
       });
@@ -59,18 +59,19 @@ const {default:Transdux, TxMixin} = require('../transdux')
       beforeEach(()=>{
         todolist = TestUtils.renderIntoDocument(
           <Transdux>
-              <TodoList />
-             <Buttons />
+            <TodoList />
+            <Buttons />
           </Transdux>
         )
       });
 
       it('click complete buttom will complete', () => {
-   //     expect(TestUtils.findRenderedDOMComponentWithClass(todolist, 'todo-1').props['data-complete']).toBe(false);
         TestUtils.Simulate.click(TestUtils.findRenderedDOMComponentWithClass(todolist, 'btn-complete'));
         jest.runAllTimers();
         jest.runAllTicks();
-        expect(TestUtils.scryRenderedComponentsWithType(todolist, Todo)[0].props.done).toBe(true);
+        expect(TestUtils.findRenderedComponentWithType(todolist, TodoList).state.todos[0].done).toBe(true);
+        expect(TestUtils.scryRenderedComponentsWithType(todolist, Todo).length).toBe(2);
+        expect(TestUtils.scryRenderedComponentsWithType(todolist, Todo)[0].props.todo.done).toBe(true);
       });
     })
   });
