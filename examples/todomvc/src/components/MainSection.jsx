@@ -51,6 +51,11 @@ let actions = {
       if(todo.id == msg.id){todo.text=msg.text}
       return todo;
     })
+  },
+  delete(msg, state){
+    return {
+      todos: state.todos.filter(todo=>todo.id != msg.id)
+    }
   }
 }
 
