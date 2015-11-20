@@ -35,3 +35,4 @@ examples/todomvc/public/*
 !examples/todomvc/public/index.html
 
 
+transdux.js
