@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "con.js": "^0.4.3",
-    "react": "^0.14.2",
+    "react": "^0.14.3",
     "uuid": "^2.0.1"
   },
   "devDependencies": {
