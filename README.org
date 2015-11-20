@@ -1,0 +1,87 @@
+* Transdux
+
+Managing React Component state in *Elegant & Functional* way with transducers and channels from ClojureScript
+
+** Rational
+flux and redux are great and solve state management and communication pretty well.
+
+*But* they are too complicated, users have to know to many things about store, dispatcher, actions which they shouldn't
+
+In reality what we have to do is actually just need to *talk* to *whatever* component I like and get my state just from *source of truth*
+- defining a action will create a tunnel for a component, so other component can talk to you via the tunnel. 
+- your new state is always come from tunnels
+- your actions(what you can do) define what kind of tunnel you have.
+
+For component who has *actions*, only thing it have to define is what can it do
+
+For component who want to call other component's action, it directly *dispatch* a message to that component.
+
+SO, all user have to know is define *actions* and *dispatch* messages.
+
+** Install
+In your React project
+#+BEGIN_SRC sh
+npm install transdux --save
+#+END_SRC
+** Usage
+*** 1. wrap you app with Transdux
+#+BEGIN_SRC html
+  <Transdux>
+      <App/>
+  </Transdux>
+#+END_SRC
+*** 2. define what your component can do
+#+BEGIN_SRC js
+// MainSection.jsx
+let actions = {
+  complete(msg, state){
+    return {
+      todos:state.todos.map(todo=>{
+        if(todo.id==msg.id)
+          todo.completed = !todo.completed
+        return todo
+      })
+    }
+  },
+  clear(msg,state){
+    return {
+      todos: state.todos.filter(todo=>todo.completed==false)
+    }
+  }
+}
+#+END_SRC
+*** 3. mixin Transdux Mixin and Bind Actions
+#+BEGIN_SRC js
+// MainSection.jsx
+  import {TxMixin} from 'transdux'
+  let MainSection = React.createClass({
+    mixins: [TxMixin],
+    componentDidMount(){
+      this.bindActions(actions)
+    },
+    ...
+  })
+
+#+END_SRC
+
+*** 4. dispatch a message
+#+BEGIN_SRC jsx
+  //TodoItem.jsx
+  import MainSection from './MainSection'
+  let TodoItem = React.createClass({
+      mixins: [TxMixin],
+      render(){
+          <input className="toggle"
+              type="checkbox"
+              checked={todo.completed}
+              onChange={() => this.dispatch(MainSection, 'complete',{id:todo.id})} />
+
+      }
+  })
+#+END_SRC
+
+** Examples
+see [[./examples]]
+
+** TODO Performance
+...
