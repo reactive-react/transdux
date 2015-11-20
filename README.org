@@ -18,6 +18,9 @@ For component who want to call other component's action, it directly *dispatch* 
 
 SO, all user have to know is define *actions* and *dispatch* messages.
 
+*The Big Picture*
+[[https://www.evernote.com/l/ABe_8eE6o2dGlZMCmNnBap_fXy83GvJe6gcB/image.jpg]]
+
 ** Install
 In your React project
 #+BEGIN_SRC sh
