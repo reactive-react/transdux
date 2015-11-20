@@ -37,9 +37,9 @@
   },
   "dependencies": {
     "classnames": "^2.2.0",
-    "transdux": "^0.0.1",
-    "react": "^0.14.3",
-    "react-dom": "^0.14.3"
+    "transdux": "^0.0.4",
+    "react": "^0.14.2",
+    "react-dom": "^0.14.2"
   },
   "devDependencies": {
     "babel": "^6.1.18",

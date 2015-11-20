@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import classnames from 'classnames'
 import {TxMixin} from 'transdux'
 import MainSection from './MainSection'
+import TodoItem from './TodoItem'
 let TodoTextInput = React.createClass({
   mixins: [TxMixin],
   getInitialState(){
@@ -26,7 +27,7 @@ let TodoTextInput = React.createClass({
 
   handleBlur(e) {
     if (!this.props.newTodo) {
-      console.log(MainSection.toString());
+      this.dispatch(TodoItem, 'completeEdit', '')
       this.dispatch(MainSection, 'edit', {id:this.props.itemid,text:e.target.value})
     }
   },

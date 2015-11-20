@@ -48,7 +48,8 @@ let actions = {
   edit(msg, state){
     let todos = state.todos
     todos.map(todo=>{
-      console.log(msg);
+      if(todo.id == msg.id){todo.text=msg.text}
+      return todo;
     })
   }
 }
