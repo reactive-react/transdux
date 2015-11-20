@@ -5,8 +5,7 @@ let Header = React.createClass({
     return (
       <header className="header">
           <h1>todos</h1>
-          <TodoTextInput chan={this.props.chan}
-                         newTodo={true}
+          <TodoTextInput newTodo={true}
                          placeholder="What needs to be done?" />
       </header>
     )
