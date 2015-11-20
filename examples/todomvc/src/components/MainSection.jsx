@@ -57,6 +57,7 @@ let actions = {
       todos: state.todos.filter(todo=>todo.id != msg.id)
     }
   }
+  
 }
 
 let MainSection = React.createClass({
