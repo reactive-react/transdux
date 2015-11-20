@@ -59,7 +59,7 @@ let TodoItem = React.createClass({
             {todo.text}
           </label>
           <button className="destroy"
-                  onClick={() => deleteTodo(todo.id)} />
+                  onClick={() => this.dispatch(MainSection, 'delete', {id:todo.id})} />
         </div>
       )
     }

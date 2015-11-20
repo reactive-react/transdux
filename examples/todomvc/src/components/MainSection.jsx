@@ -46,11 +46,19 @@ let actions = {
     }
   },
   edit(msg, state){
-    let todos = state.todos
-    todos.map(todo=>{
-      if(todo.id == msg.id){todo.text=msg.text}
-      return todo;
-    })
+    return {
+      todos: state.todos.map(todo=>{
+        if(todo.id == msg.id){todo.text=msg.text}
+        return todo;
+      })
+    } 
+  },
+  delete(msg, state){
+    return {
+      todos: state.todos.filter(todo=>{
+        return todo.id!=msg.id
+      })
+    }
   }
 }
 
@@ -64,12 +72,6 @@ let MainSection = React.createClass({
   },
   componentDidMount(){
     this.bindActions(actions)
-  },
-
-  handleClearCompleted() {
-    const atLeastOneCompleted = this.state.todos.some(todo => todo.completed)
-    if (atLeastOneCompleted) {
-    }
   },
 
   handleShow(filter) {
