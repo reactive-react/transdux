@@ -3,6 +3,15 @@ import classnames from 'classnames'
 import TodoTextInput from './TodoTextInput'
 import MainSection from './MainSection'
 import {TxMixin} from 'transdux'
+
+let actions = {
+    completeEdit(msg, state){
+      return {
+        editing: false
+      }
+}}
+
+
 let TodoItem = React.createClass({
   mixins: [TxMixin],
   getInitialState(){
@@ -10,6 +19,11 @@ let TodoItem = React.createClass({
       editing: false,
     }
   },
+
+  componentDidMount(){
+    this.bindActions(actions)
+  },
+
 
   handleDoubleClick() {
     this.setState({ editing: true })
