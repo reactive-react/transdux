@@ -66,11 +66,9 @@ const {default:Transdux, TxMixin} = require('../transdux');
       });
 
       it('click complete buttom will complete', () => {
+        expect(TestUtils.scryRenderedComponentsWithType(todolist, Todo)[0].props.todo.done).toBe(false);
         TestUtils.Simulate.click(TestUtils.findRenderedDOMComponentWithClass(todolist, 'btn-complete'));
         jest.runAllTimers();
-        jest.runAllTicks();
-        expect(TestUtils.findRenderedComponentWithType(todolist, TodoList).state.todos[0].done).toBe(true);
-        expect(TestUtils.scryRenderedComponentsWithType(todolist, Todo).length).toBe(2);
         expect(TestUtils.scryRenderedComponentsWithType(todolist, Todo)[0].props.todo.done).toBe(true);
       });
     })
