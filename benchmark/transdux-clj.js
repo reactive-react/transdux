@@ -20,9 +20,10 @@ for(var i=0;i<1000;i++)
 time(function(done){
   function Target(){
     return {
-      state: initState,
+      getInitialState: function(){return initState},
       context:context,
       setState: function(state){
+        this.state=state
         done(state[0])
       },
       constructor: Target
