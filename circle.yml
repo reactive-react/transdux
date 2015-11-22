@@ -1,0 +1,13 @@
+machine:
+  node:
+    version: 4.1.2
+deployment:
+  production:
+    tag: /v\d.*/
+    commands:
+      - ./ci/npm-login.sh
+      - npm publish
+  pages:
+    branch: master
+    commands:
+      - ./ci/github_pages.sh
