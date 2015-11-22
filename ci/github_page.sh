@@ -5,7 +5,7 @@ npm install
 npm run build
 cd ../..
 mkdir -p public/todomvc
-cp -r examples/todomvc/public public/todomvc
+cp examples/todomvc/public/* public/todomvc
 cd public
 git checkout -b gh-pages
 git config --global user.email "oyanglulu@gmail.com"

@@ -2,7 +2,7 @@ machine:
   node:
     version: 5.0.0
 dependencies:
-  override:
+  pre:
     - npm install -g babel-cli    
 deployment:
   production:
@@ -11,6 +11,6 @@ deployment:
       - ./ci/npm-login.sh
       - npm publish
   pages:
-    branch: master
+    tag: /example.*/
     commands:
       - ./ci/github_pages.sh
