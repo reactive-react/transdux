@@ -1,6 +1,6 @@
 * Transdux
 
-[[https://circleci.com/gh/jcouyang/transdux.svg?style=svg][https://circleci.com/gh/jcouyang/transdux]]
+[[https://circleci.com/gh/jcouyang/transdux.svg?style=svg][https://circleci.com/gh/jcouyang/transdux.svg?style=svg]]
 
 Managing React Component state in *Elegant & Functional* way with transducers and channels from ClojureScript
 
