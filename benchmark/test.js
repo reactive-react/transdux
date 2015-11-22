@@ -1,5 +1,3 @@
-var Benchmark = require('benchmark');
-var suite = new Benchmark.Suite;
 var conjs = require('con.js');
 var tx = require('../transdux.js').TxMixin
 // Maximal 1024 per channel
