@@ -1,6 +1,9 @@
 machine:
   node:
     version: 5.0.0
+dependencies:
+  override:
+    - npm install -g babel-cli    
 deployment:
   production:
     tag: /v\d.*/

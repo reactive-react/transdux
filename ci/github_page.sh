@@ -1,6 +1,7 @@
 #!/bin/bash
 set -x -e
 cd examples/todomvc
+npm install
 npm run build
 cd ../..
 mkdir -p public/todomvc
