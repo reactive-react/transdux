@@ -1,0 +1,5 @@
+* RoadMap
+
+- [ ] using Atom managing state
+- [ ] smoke testing
+- [ ] improve performance
