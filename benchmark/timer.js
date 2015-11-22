@@ -1,4 +1,4 @@
-var CYCLE = 10
+var CYCLE = 1023
 exports.time = function(f) {
   console.log('Memory Usage Before:', process.memoryUsage())
   var s = new Date();

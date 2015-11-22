@@ -13,14 +13,18 @@ var context = {
   transduxPublication: conjs.async.pub(inputChan, function(_){return _['action']}),
 }
 
+var initState = [0]
+for(var i=0;i<1000;i++)
+  initState.push(i)
+
 time(function(done){
   function Target(){
     return {
-      state: 0,
+      state: initState,
       context:context,
       setState: function(state){
         this.state=state
-        done(state)
+        done(state[0])
       },
       constructor: Target
     }
@@ -28,12 +32,7 @@ time(function(done){
   var target = new Target()
   txmixinClj.bindActions.call(target, {
     increment: function(msg,state){
-      console.log(state.toString());
-      var a = state
-      a=a+1
-            // a=conjs.map(function(m){return m+1}, state)
-      return a
-      // return msg+1
+      return conjs.map(function(m){return msg+1}, state)
     }
   })
 
