@@ -4,7 +4,7 @@
   "description": "",
   "main": "transdux.js",
   "scripts": {
-    "build": "babel lib/transdux.js > transdux.js",
+    "build": "./node_modules/.bin/babel lib/transdux.js > transdux.js",
     "test": "jest",
     "prepublish": "npm run build"
   },
