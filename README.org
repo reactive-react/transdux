@@ -1,6 +1,12 @@
 * Transdux
 
-[[https://circleci.com/gh/jcouyang/transdux.svg?style=svg][https://circleci.com/gh/jcouyang/transdux.svg?style=svg]]
+[[https://circleci.com/gh/jcouyang/transdux][https://circleci.com/gh/jcouyang/transdux.svg?style=svg]]
+
+[[http://blog.oyanglul.us/javascript/react-transdux-the-clojure-approach-of-flux.html][>中文<]]
+
+#+BEGIN_QUOTE
+Finnally a flux like framework don't even need a tutorial.
+#+END_QUOTE
 
 Managing React Component state in *Elegant & Functional* way with transducers and channels from ClojureScript
 
@@ -116,3 +122,5 @@ Elapsed 4ms
 
 ** TODOS
 [[./ROADMAP.org]]
+
+** License

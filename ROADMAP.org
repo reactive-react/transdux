@@ -1,5 +1,8 @@
-* RoadMap
+* RoadMap [33%]
 
 - [X] using Atom managing state
-- [ ] smoke testing
+- [-] smoke testing
+  - [X] benchmark
+  - [ ] smoke
 - [ ] improve performance
+
