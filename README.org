@@ -13,24 +13,28 @@ Finnally a flux like framework don't even need a tutorial.
 
 Managing React Component state in *Elegant & Functional* way with transducers and channels from ClojureScript
 
-** Rational
+** Rationale
 flux and redux are great and solve state management and communication pretty well.
 
-*But* they are too complicated, users have to know to many things about store, dispatcher, actions which they shouldn't
+*But* they are too complicated, users have to know toomany things about store, dispatcher, actions which they shouldn't
 
-In reality what we have to do is actually just need to *talk* to *whatever* component I like and get my state just from *source of truth*
-- defining a action will create a tunnel for a component, so other component can talk to you via the tunnel. 
-- your new state is always come from tunnels
-- your actions(what you can do) define what kind of tunnel you have.
+In reality what we have to do is actually just need to *talk* to *whatever* component I like and get my state from one *source of truth*, so the simplest way to do this is:
 
-For component who has *actions*, only thing it have to define is what can it do
+For component who has *actions*, only thing it have to define is what can it do.
 
 For component who want to call other component's action, it directly *dispatch* a message to that component.
 
-SO, all user have to know is define *actions* and *dispatch* messages.
+SO, all user have to know is how to define *actions* and *dispatch* messages.
 
 *The Big Picture*
 [[https://www.evernote.com/l/ABe_8eE6o2dGlZMCmNnBap_fXy83GvJe6gcB/image.jpg]]
+
+We're using Channels/Actors Model from Clojure -- core.async, It's compile to JS by [[http://github.com/jcouyang/conjs][conjs]]
+
+*Basic Idea*
+we composed channels, subs, pubs, and transducers together like tunnels, every message goes through the tunnel will got process by the transducer with action function user provided.
+
+so, whenever a message is dispatch to input channel, you'll get new state from the corresponding output channel. you don't need to care about how the dispatching really happen in the framework.
 
 ** Install
 In your React project
@@ -38,10 +42,11 @@ In your React project
 npm install transdux --save
 #+END_SRC
 ** Usage
+to wire in transdux, only 4 place you have to pay attention to.
 *** 1. wrap you app with Transdux
 #+BEGIN_SRC html
   <Transdux>
-      <App/>
+    <App/>
   </Transdux>
 #+END_SRC
 *** 2. define what your component can do
@@ -78,7 +83,7 @@ let actions = {
 
 #+END_SRC
 
-*** 4. dispatch a message
+*** 4. mixin and dispatch a message
 #+BEGIN_SRC jsx
   //TodoItem.jsx
   import MainSection from './MainSection'
@@ -123,7 +128,8 @@ Memory Usage After: { rss: 22638592, heapTotal: 9275392, heapUsed: 5472112 }
 Elapsed 4ms
 #+END_EXAMPLE
 
+Yeah, I know, it's slower then redux, and I'm working on it.
+But, it's not bad, it's totally reasonable trade-off a little performance to get writing code which is more composable, reusable, testable, easy to reason about.
+
 ** TODOS
 [[./ROADMAP.org]]
-
-** License
