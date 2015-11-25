@@ -1,3 +1,7 @@
+general:
+  branches:
+    only:
+      - master
 machine:
   node:
     version: 5.0.0
