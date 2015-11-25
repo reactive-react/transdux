@@ -1,5 +1,8 @@
 * Transdux
 
+  #+ATTR_HTML: title="Join the chat at https://gitter.im/jcouyang/transdux"
+  [[https://gitter.im/jcouyang/transdux?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge][file:https://badges.gitter.im/Join%20Chat.svg]]
+
 [[https://circleci.com/gh/jcouyang/transdux][https://circleci.com/gh/jcouyang/transdux.svg?style=svg]]
 
 [[http://blog.oyanglul.us/javascript/react-transdux-the-clojure-approach-of-flux.html][>中文<]]
