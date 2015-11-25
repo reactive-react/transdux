@@ -13,4 +13,4 @@ deployment:
   pages:
     tag: /example.*/
     commands:
-      - ./ci/github_pages.sh
+      - ./ci/github_page.sh

@@ -13,11 +13,13 @@ let TodoTextInput = React.createClass({
 
   handleSubmit(e) {
     const text = e.target.value.trim()
+    let msg = {id:this.props.itemid,text:text}
     if (e.which === 13) {
-      this.dispatch(MainSection, 'add', text)
       if (this.props.newTodo) {
+        this.dispatch(MainSection, 'add', text)
         this.setState({ text: '' })
       }
+      this.handleBlur(e)
     }
   },
 
@@ -27,8 +29,13 @@ let TodoTextInput = React.createClass({
 
   handleBlur(e) {
     if (!this.props.newTodo) {
-      this.dispatch(TodoItem, 'completeEdit', '')
-      this.dispatch(MainSection, 'edit', {id:this.props.itemid,text:e.target.value})
+      let msg = {id:this.props.itemid,text:e.target.value}
+      if (msg.text.length === 0) {
+        this.dispatch(MainSection, 'delete', msg)
+      } else {
+        this.dispatch(MainSection, 'edit', msg)
+      }
+      this.dispatch(TodoItem, 'save', msg)
     }
   },
 

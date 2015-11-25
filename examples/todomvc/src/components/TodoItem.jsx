@@ -5,11 +5,13 @@ import MainSection from './MainSection'
 import {TxMixin} from 'transdux'
 
 let actions = {
-    completeEdit(msg, state){
-      return {
-        editing: false
-      }
-}}
+  save(msg, state,props) {
+    if(msg.id!=props.todo.id) return
+    return {
+      editing: false
+    }
+  }
+}
 
 
 let TodoItem = React.createClass({
@@ -24,21 +26,8 @@ let TodoItem = React.createClass({
     this.bindActions(actions)
   },
 
-
-  handleDoubleClick() {
-    this.setState({ editing: true })
-  },
-
-  handleSave(text) {
-    if (text.length === 0) {
-      this.props.deleteTodo(id)
-    } else {
-    }
-    this.setState({ editing: false })
-  },
-
   render() {
-    const { chan, todo } = this.props
+    const { todo } = this.props
 
     let element
     if (this.state.editing) {
@@ -55,7 +44,7 @@ let TodoItem = React.createClass({
                  type="checkbox"
                  checked={todo.completed}
                  onChange={() => this.dispatch(MainSection, 'complete',{id:todo.id})} />
-          <label onDoubleClick={this.handleDoubleClick}>
+          <label onDoubleClick={()=> this.setState({editing:true})}>
             {todo.text}
           </label>
           <button className="destroy"
