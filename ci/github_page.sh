@@ -1,5 +1,6 @@
 #!/bin/bash
 set -x -e
+git clone git@github.com:jcouyang/transdux.git gh-pages public
 cd examples/todomvc
 npm install
 npm run build
