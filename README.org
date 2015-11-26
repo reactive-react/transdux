@@ -41,6 +41,7 @@ In your React project
 #+BEGIN_SRC sh
 npm install transdux --save
 #+END_SRC
+
 ** Usage
 to wire in transdux, only 4 place you have to pay attention to.
 *** 1. wrap you app with Transdux
@@ -100,7 +101,8 @@ let actions = {
 #+END_SRC
 
 ** Examples
-see [[./examples]]
+- [[http://oyanglul.us/transdux/todomvc/][todomvc]]
+  - source: [[./examples]]
 
 ** Performance
 for dispatching 1023 message at the same time, here is the Memory Usage and Time elapsed
