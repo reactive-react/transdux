@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.0",
-    "transdux": "^0.0.4",
+    "transdux": "^0.0.9",
     "react": "^0.14.2",
     "react-dom": "^0.14.2"
   },
