@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import classnames from 'classnames'
 import TodoTextInput from './TodoTextInput'
 import MainSection from './MainSection'
-import {TxMixin} from 'transdux'
+import {mixin} from 'transdux'
 
 let actions = {
   save(msg, state,props) {
@@ -14,17 +14,14 @@ let actions = {
 }
 
 
-let TodoItem = React.createClass({
-  mixins: [TxMixin],
-  getInitialState(){
-    return {
-      editing: false,
-    }
-  },
-
+class TodoItem extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {editing:false};
+  }
   componentDidMount(){
     this.bindActions(actions)
-  },
+  }
 
   render() {
     const { todo } = this.props
@@ -61,7 +58,8 @@ let TodoItem = React.createClass({
         {element}
       </li>
     )
-  },
-});
+  }
+}
 
-export default TodoItem
+
+export default mixin(TodoItem)

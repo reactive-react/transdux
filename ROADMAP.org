@@ -4,5 +4,6 @@
 - [-] smoke testing
   - [X] benchmark
   - [ ] smoke
+- [ ] unsubscribe when component unmount
 - [ ] improve performance
 

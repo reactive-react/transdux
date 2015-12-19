@@ -70,7 +70,8 @@ let actions = {
   }
 }
 #+END_SRC
-*** 3. mixin Transdux Mixin and Bind Actions
+*** for Mixin lover
+**** 3. mixin Transdux Mixin and Bind Actions
 #+BEGIN_SRC js
 // MainSection.jsx
   import {TxMixin} from 'transdux'
@@ -84,7 +85,7 @@ let actions = {
 
 #+END_SRC
 
-*** 4. mixin and dispatch a message
+**** 4. mixin and dispatch a message
 #+BEGIN_SRC jsx
   //TodoItem.jsx
   import MainSection from './MainSection'
@@ -92,14 +93,53 @@ let actions = {
       mixins: [TxMixin],
       render(){
           <input className="toggle"
-              type="checkbox"
-              checked={todo.completed}
-              onChange={() => this.dispatch(MainSection, 'complete',{id:todo.id})} />
+          type="checkbox"
+          checked={todo.completed}
+          onChange={() => this.dispatch(MainSection, 'complete',{id:todo.id})} />
 
       }
   })
 #+END_SRC
 
+*** for ES6 class lover
+**** 3. mixin transdux into Class
+#+BEGIN_SRC js
+    // TodoItem.jsx
+    import {mixin} from 'transdux'
+    let actions = {
+      ...
+    }
+    class TodoItem extends React.Component {
+      constructor(props){
+        super(props);
+        this.state = {editing:false};
+      }
+      componentDidMount(){
+        this.bindActions(actions)
+      }
+      ...
+    }
+    export default mixin(TodoItem)
+
+#+END_SRC
+
+**** 4. dispatch a message
+#+BEGIN_SRC jsx
+  //TodoItem.jsx
+  import MainSection from './MainSection'
+  class TodoItem extends React.Component {
+   ...
+      render(){
+          <input className="toggle"
+          type="checkbox"
+          checked={todo.completed}
+          onChange={() => this.dispatch(MainSection, 'complete',{id:todo.id})} />
+
+      }
+   ...
+  })
+  export default mixin(TodoItem)
+#+END_SRC
 ** Examples
 - [[http://oyanglul.us/transdux/todomvc/][todomvc]]
   - source: [[./examples]]
