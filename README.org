@@ -9,7 +9,7 @@ Circle CI [[https://circleci.com/gh/jcouyang/transdux][https://circleci.com/gh/j
 [[http://blog.oyanglul.us/javascript/react-transdux-the-clojure-approach-of-flux.html][>中文<]]
 
 #+BEGIN_QUOTE
-Finnally a flux like framework don't even need a tutorial.
+Finnally a flux like framework don't even need a tutorial, our [[./examples/todomvc][TodoMVC]] will tell you all.
 #+END_QUOTE
 
 Managing React Component state in *Elegant & Functional* way with transducers and channels from ClojureScript
@@ -17,7 +17,7 @@ Managing React Component state in *Elegant & Functional* way with transducers an
 ** Rationale
 flux and redux are great and solve state management and communication pretty well.
 
-*But* they are too complicated, users have to know toomany things about store, dispatcher, actions which they shouldn't
+*But* they are too complicated, users have to know toomany things about store, dispatcher, actions which they *shouldn't*
 
 In reality what we have to do is actually just need to *talk* to *whatever* component I like and get my state from one *source of truth*, so the simplest way to do this is:
 
@@ -25,7 +25,11 @@ For component who has *actions*, only thing it have to define is what can it do.
 
 For component who want to call other component's action, it directly *dispatch* a message to that component.
 
-SO, all user have to know is how to define *actions* and *dispatch* messages.
+SO, all user have to know is to
+- define *actions* for your component
+- *dispatch* messages to *any component* you want to talk to
+
+and leave all the other *dirty works* (stores, states) to our functional transducers, channels and pubsub that user don't really need to care about.
 
 *The Big Picture*
 [[https://www.evernote.com/l/ABe_8eE6o2dGlZMCmNnBap_fXy83GvJe6gcB/image.jpg]]
@@ -115,12 +119,9 @@ let actions = {
         super(props);
         this.state = {editing:false};
       }
-      componentDidMount(){
-        this.bindActions(actions)
-      }
       ...
     }
-    export default mixin(TodoItem)
+    export default mixin(TodoItem, actions)
 
 #+END_SRC
 
@@ -146,7 +147,7 @@ let actions = {
   - source: [[./examples]]
 
 ** Performance
-for dispatching 1023 message at the same time, here is the Memory Usage and Time elapsed
+for dispatching *1023 messages* at the same time, here is the Memory Usage and Time elapsed
 
 tested on /Macbook Pro 13, CPU 2.9GHz Intel Core i5, Mem 16GB 1867MHz DDR3/
 
@@ -172,7 +173,7 @@ Elapsed 4ms
 #+END_EXAMPLE
 
 Yeah, I know, it's slower then redux, and I'm working on it.
-But, it's not bad, it's totally reasonable trade-off a little performance to get writing code which is more composable, reusable, testable, easy to reason about.
+But, it's not bad, it's totally reasonable trade-off a little performance to get writing code which is more composable, reusable, testable and easy to reason about.
 
 ** TODOS
 [[./ROADMAP.org]]

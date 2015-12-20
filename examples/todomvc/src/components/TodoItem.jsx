@@ -19,10 +19,6 @@ class TodoItem extends React.Component {
     super(props);
     this.state = {editing:false};
   }
-  componentDidMount(){
-    this.bindActions(actions)
-  }
-
   render() {
     const { todo } = this.props
 
@@ -62,4 +58,4 @@ class TodoItem extends React.Component {
 }
 
 
-export default mixin(TodoItem)
+export default mixin(TodoItem, actions, _=>{console.log('hehe'); return _})
