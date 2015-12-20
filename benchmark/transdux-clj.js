@@ -22,9 +22,10 @@ time(function(done){
     return {
       getInitialState: function(){return initState},
       context:context,
-      setState: function(state){
-        this.state=state
-        done(state[0])
+      state: [0],
+      setState: function(f){
+        this.state=f(this.state)
+        done(this.state[0])
       },
       constructor: Target
     }
