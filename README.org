@@ -1,4 +1,7 @@
 * Transdux
+#+BEGIN_QUOTE
+For better Performance, please Try most.js version [[https://github.com/jcouyang/mostux][mostux]]
+#+END_QUOTE
 
 I'm trying to documenting in more detail, but if you have any question, feel free to 
   #+ATTR_HTML: title="Join the chat at https://gitter.im/jcouyang/transdux"
